@@ -1,4 +1,4 @@
-* Sequenza di aggiornamento dalla directory OSIRIDE -> github
+** Sequenza di aggiornamento dalla directory OSIRIDE -> github
 
 #+BEGIN_SRC
 dotfile status 
@@ -8,7 +8,7 @@ dotfiles pull origin main
 dotfiles push -u origin main ## perché "dotfiles push origin main" va in errore
 #+END_SRC
 
-* cloning su un nuovo PC
+** cloning su un nuovo PC
 
 Prima di cominciare rimuovere i file in conflitto dalla home e subdir: 
 =mv .emacs.d/ XXemacs.d/=
