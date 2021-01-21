@@ -1,4 +1,21 @@
 
+Rimuovere i file in conflitto dalla home e subdir
+
+mv .emacs.d/ XXemacs.d/
+
+echo 'alias dotfiles="/usr/bin/git --git-dir=$HOME/.dotfiles --work-tree=$HOME"' >> .bashrc
+
+source .bashrc
+
+echo ".dotfiles" >> .gitignore
+
+git clone --bare https://www.github.com/memdevice/dotfiles.git $HOME/.dotfiles
+
+dotfiles checkout
+
+dotfiles config --local status.showUntrackedFiles no
+
+
 
 (cfr: 
 
