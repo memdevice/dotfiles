@@ -1,9 +1,3 @@
-  =C-c s= is a good mnemonic binding for scratch-el:
-
-  #+BEGIN_SRC emacs-lisp -n -r
-    (define-key (current-global-map) "\C-cs" #'scratch)
-  #+END_SRC
-
 * Sequenza di aggiornamento dalla directory OSIRIDE -> github
 
 #+BEGIN_SRC
