@@ -16,19 +16,17 @@ dotfiles push -u origin main ## perché "dotfiles push origin main" va in errore
 
 * cloning su un nuovo PC
 
-Rimuovere i file in conflitto dalla home e subdir: =mv .emacs.d/ XXemacs.d/=
+Prima di cominciare rimuovere i file in conflitto dalla home e subdir: 
+=mv .emacs.d/ XXemacs.d/=
 
+#+BEGIN_SRC
 echo 'alias dotfiles="/usr/bin/git --git-dir=$HOME/.dotfiles --work-tree=$HOME"' >> .bashrc
-
 source .bashrc
-
 echo ".dotfiles" >> .gitignore
-
 git clone --bare https://www.github.com/memdevice/dotfiles.git $HOME/.dotfiles
-
 dotfiles checkout
-
 dotfiles config --local status.showUntrackedFiles no
+#+END_SRC
 
 (cfr:
 
