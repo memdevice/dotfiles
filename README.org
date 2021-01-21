@@ -1,4 +1,21 @@
 
+* Usage
+
+  - =M-x scratch= Immediately create a scratch buffer with the same
+    major mode as the current buffer’s.  If the region is active, copy
+    it to the scratch buffer.  If a scratch buffer already exists, pop
+    to it (and do nothing with the region).
+  - =C-u M-x scratch= Prompts for a major mode to create a scratch
+    buffer with.
+
+
+* Binding
+
+  =C-c s= is a good mnemonic binding for scratch-el:
+
+  #+BEGIN_SRC emacs-lisp -n -r
+    (define-key (current-global-map) "\C-cs" #'scratch)
+  #+END_SRC
 
 Sequenza di aggiornamento dalla directory OSIRIDE -> github
 
