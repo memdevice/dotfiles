@@ -17,7 +17,7 @@
     (define-key (current-global-map) "\C-cs" #'scratch)
   #+END_SRC
 
-Sequenza di aggiornamento dalla directory OSIRIDE -> github
+** Sequenza di aggiornamento dalla directory OSIRIDE -> github
 
 :dotfile status 
 :dotfiles add .emacs.d/init.el 
