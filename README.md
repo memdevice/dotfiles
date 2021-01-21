@@ -1,10 +1,10 @@
 Sequenza di aggiornamento dalla directory OSIRIDE -> github
 
-:dotfile status
-:dotfiles add .emacs.d/init.el
-:dotfiles commit -m "aggiunti F9 ed f12, electric pair, C-x k"
-:dotfiles pull origin main
-:dotfiles push -u origin main  ## perché "dotfiles push origin main" va in errore
+ :dotfile status
+ :dotfiles add .emacs.d/init.el
+ :dotfiles commit -m "aggiunti F9 ed f12, electric pair, C-x k"
+ :dotfiles pull origin main
+ :dotfiles push -u origin main  ## perché "dotfiles push origin main" va in errore
 
 
 ####
