@@ -1,0 +1,37 @@
+
+
+Sequenza di aggiornamento dalla directory OSIRIDE -> github
+
+:dotfile status 
+:dotfiles add .emacs.d/init.el 
+:dotfiles commit -m "aggiunti F9 ed f12, electric pair, C-x k" 
+:dotfiles pull origin main 
+:dotfiles push -u origin main ## perché "dotfiles push origin main" va in errore
+
+Rimuovere i file in conflitto dalla home e subdir
+
+mv .emacs.d/ XXemacs.d/
+
+echo 'alias dotfiles="/usr/bin/git --git-dir=$HOME/.dotfiles --work-tree=$HOME"' >> .bashrc
+
+source .bashrc
+
+echo ".dotfiles" >> .gitignore
+
+git clone --bare https://www.github.com/memdevice/dotfiles.git $HOME/.dotfiles
+
+dotfiles checkout
+
+dotfiles config --local status.showUntrackedFiles no
+
+(cfr:
+
+https://martijnvos.dev/using-a-bare-git-repository-to-store-linux-dotfiles/
+
+https://www.atlassian.com/git/tutorials/dotfiles
+
+https://harfangk.github.io/2016/09/18/manage-dotfiles-with-a-git-bare-repository.html
+
+https://www.ackama.com/blog/posts/the-best-way-to-store-your-dotfiles-a-bare-git-repository-explained
+
+https://medium.com/toutsbrasil/how-to-manage-your-dotfiles-with-git-f7aeed8adf8b)
