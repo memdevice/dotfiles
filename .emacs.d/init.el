@@ -1,5 +1,5 @@
 ;;
-;; LM init file -- 20210115
+;; LM init file -- 20210122
 ;;
 
 ;; LM:________________________________________________________________
@@ -21,10 +21,6 @@
 ;;     interfaccia utente
 ;; ___________________________________________________________________
 
-;; se si preferisce partire con un file vuoto "untitled"
-;; invece che con lo scratch buffer (cfr. piu' sotto)
-;(setq initial-buffer-choice 'xah-new-empty-buffer)
-
 ;; Do not show the startup screen.
 (setq inhibit-startup-message t)
 
@@ -36,7 +32,7 @@
 ;; mostra anche il numero di colonna
 (setq column-number-mode t)
 
-;; LM: Word wrap always on: "visual line mode"
+;; LM: always on word wrap / truncate long lines
 ;; (setq-default word-wrap t)
 (setq-default truncate-lines t)
 
@@ -48,16 +44,20 @@
 
 ;; finestra verticale quasi 4:3 (chars x lines)
 (when window-system
-;  (set-frame-position (selected-frame) 0 0)
+  (set-frame-position (selected-frame) 42 42)
   (set-frame-size (selected-frame) 72 52))
 ;; NB: alternativa l'opzione ‘-fh’ ‘--fullheight’ da command line
 
+;; title bar
 ;; LM test rapido: configurazione standard vs. LM own
 
 ;; (setq  frame-title-format (format "%s's Emacs" (capitalize user-login-name)))
-;; (setq frame-title-format (format " ――――――     %s's Emacs Emacs     ――――――――――― " (capitalize user-login-name))) ; standard
+;; (setq frame-title-format (format " ――――――     %s's Emacs    ――――――――――――――――― " (capitalize user-login-name))) ; standard
 (setq frame-title-format (format " ――――――  |    EscMetaAltControlShift  42   |  ――――――――――――――――― ")) ; LM own (64 char)
 
+;; se si preferisce partire con un file vuoto "untitled"
+;; invece che con lo scratch buffer (cfr. piu' sotto)
+;(setq initial-buffer-choice 'xah-new-empty-buffer)
 
 ;; LM:________________________________________________________________
 ;;
@@ -196,7 +196,8 @@ Version 2017-11-01"
 ;; <F6> revert-this-buffer (reload from file)
 (global-set-key [f6] 'revert-this-buffer) ; F6
 
-;;(global-set-key [f7] 'xxxxxxxxx) ; F7
+;; <F7> mpwgen (pronounceable passphrase)
+(global-set-key [f7] 'mpwgen) ; F7
 
 ;; kill other buffer (elimina tutti tranne quello corrente)
 ;; forse sarebbe meglio usare un keybinding diverso (<F8>?)
@@ -247,9 +248,8 @@ Version 2017-11-01"
 ;; sinvirt!
 ;;(require 'sinvirt)
 
-;; LM private and personal configuration
-;; (load "~/.emacs.d/myconfig")
-
+;; genratore di password pronunciabili by EXE
+(require 'mpwgen)
 
 ;; LM:________________________________________________________________
 ;;
@@ -285,3 +285,28 @@ Version 2017-11-01"
 (setq explicit-bash.exe-args '("--noediting" "--login" "-i"))
 (setenv "SHELL" shell-file-name)
 (add-hook 'comint-output-filter-functions 'comint-strip-ctrl-m)
+
+
+;; LM private and personal configuration
+;; (load "~/.emacs.d/myconfig")
+
+
+;; Supply a random fortune cookie as the *scratch* message.
+;; (using internal function.el...)
+ (when (executable-find "fortune")
+   (setq initial-scratch-message
+         (with-temp-buffer
+           (shell-command "fortune" t)
+           (let ((comment-start ";;"))
+             (comment-region (point-min) (point-max)))
+           (concat (buffer-string) "\n"))))
+
+
+;; using thesaurus offline in d:\home\dict
+(require 'mthesaur)
+(global-set-key "\C-ct" 'mthesaur-search)
+(global-set-key "\C-c\C-t" 'mthesaur-search-append)
+
+;; password pronunciabili
+;; grazie Exedre!
+(mpwgen)  ; visualizzane una in message buffer
