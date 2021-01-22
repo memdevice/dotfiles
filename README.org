@@ -1,3 +1,12 @@
+** istruzioni
+
+- Scaricare il file zip di Emacs per Windows da qui
+- unzipparlo nella directory =c:\emacs\emacs-27.1-x86_64= (il nome proposto dall'unzip)
+- creare la directory d:\home e trasferirvi il contenuto di questo repository
+- spostare i batch ora presenti in =d:\home\.emacs.d\bat= in =c:\emacs\emacs-27.1-x86_64= 
+- creare un link sul desktop al batch "emacs.bat" e cambiarne l'icona
+
+
 ** Sequenza di aggiornamento dalla directory OSIRIDE -> github
 
 #+BEGIN_SRC
