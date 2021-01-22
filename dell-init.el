@@ -1,25 +1,4 @@
-;;find-file-at-point, smarter C-x C-f when point on path or URL
-(ffap-bindings)
-
-;; Use your name in the frame title. :)
-(setq  frame-title-format (format "%s's Emacs" (capitalize user-login-name)))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-;; Delete whitespace just when a file is saved.
-(add-hook 'before-save-hook 'delete-trailing-whitespace)
-
-;; Require and initialize `package`.
-;;(require 'package)
-;;(package-initialize)
-
-;; Add `melpa` to `package-archives`.
-;;(add-to-list 'package-archives
-;;             '("melpa" . "http://melpa.milkbox.net/packages/") t)
-
-;; Use the `spacemacs-dark` theme.
-;;(load-theme 'spacemacs-dark)
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; Auto-wrap at 80 characters
 ;;(setq-default auto-fill-function 'do-auto-fill)
@@ -33,6 +12,3 @@
 ;; wide as that tab on the display.
 ;; (setq x-stretch-cursor t)
 
-;; ――――――――――――――――― LM package installed by hand  ―――――――――――――――――――――――――
-
-(require 'sinvirt)
