@@ -1,0 +1,40 @@
+** istruzioni
+
+- Scaricare il file zip dell'ultima versione di Emacs per Windows da qui: https://www.gnu.org/software/emacs/download.html (e.g. http://mirror.kumi.systems/gnu/emacs/windows/emacs-27/emacs-27.1-x86_64.zip)
+- unzipparlo nella directory =c:\emacs\= con il nome proposto dall'unzip (e.g. emacs-27.1-x86_64.zip)
+- creare la directory d:\home e trasferirvi il contenuto di questo repository
+- spostare i batch ora presenti in =d:\home\.emacs.d\bat= in =c:\emacs\emacs-27.1-x86_64= 
+- creare un link sul desktop al batch "emacs.bat" e cambiarne l'icona
+
+
+** Sequenza di aggiornamento dalla directory OSIRIDE -> github
+
+#+BEGIN_SRC
+dotfile status 
+dotfiles add .emacs.d/init.el 
+dotfiles commit -m "aggiunti F9 ed f12, electric pair, C-x k" 
+dotfiles pull origin main 
+dotfiles push -u origin main ## perché "dotfiles push origin main" va in errore
+#+END_SRC
+
+** cloning su un nuovo PC
+
+Prima di cominciare rimuovere i file in conflitto dalla home e subdir: 
+=mv .emacs.d/ XXemacs.d/=
+
+#+BEGIN_SRC
+echo 'alias dotfiles="/usr/bin/git --git-dir=$HOME/.dotfiles --work-tree=$HOME"' >> .bashrc
+source .bashrc
+echo ".dotfiles" >> .gitignore
+git clone --bare https://www.github.com/memdevice/dotfiles.git $HOME/.dotfiles
+dotfiles checkout
+dotfiles config --local status.showUntrackedFiles no
+#+END_SRC
+
+** cfr:
+
+- https://martijnvos.dev/using-a-bare-git-repository-to-store-linux-dotfiles/
+- https://www.atlassian.com/git/tutorials/dotfiles
+- https://harfangk.github.io/2016/09/18/manage-dotfiles-with-a-git-bare-repository.html
+- https://www.ackama.com/blog/posts/the-best-way-to-store-your-dotfiles-a-bare-git-repository-explained
+- https://medium.com/toutsbrasil/how-to-manage-your-dotfiles-with-git-f7aeed8adf8b)
