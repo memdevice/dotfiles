@@ -1,6 +1,6 @@
 ** istruzioni
 
-- Scaricare il file zip di Emacs per Windows da qui
+- Scaricare il file zip dell'ultima versione di Emacs per Windows da qui: https://www.gnu.org/software/emacs/download.html
 - unzipparlo nella directory =c:\emacs\emacs-27.1-x86_64= (il nome proposto dall'unzip)
 - creare la directory d:\home e trasferirvi il contenuto di questo repository
 - spostare i batch ora presenti in =d:\home\.emacs.d\bat= in =c:\emacs\emacs-27.1-x86_64= 
