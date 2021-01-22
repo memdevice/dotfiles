@@ -29,12 +29,9 @@
 
 ;;; Commentary:
 ;;
-;;  random-quote provides a simple mechanism to pick a random quote in a
-;;  file. It is sufficient to put the file name containing the quotes in the
-;;  `random-quote-file' variable. Next, at each invocation of
-;;  `pick-random-quote', a string containing a random quote will be
-;;  returned. The `random-quote-file' format has been kept as simpler as
-;;  possible; at moment it simply consists in a quote per line.
+;;  mpwgen provides a simple mechanism to pick a random password made
+;;  by base component taken from three dictionary (nouns, adjectives and
+;;  adverbs). You can also choose the separator
 
 ;;; Installation:
 ;;
@@ -49,6 +46,9 @@
 ;;  - customize mpwgen-schema with noun, adjective and adverb symbols
 ;;  - use command
 ;;  (mpwgen)
+;;  - the generated password is now in the kill ring
+;;  - use yank (C-y)
+
 
 ;;; Known Bugs:
 ;;
@@ -67,6 +67,9 @@
 ;;
 ;;
 
+(defcustom mpwgen-sep  (mpwgen-random-sep)
+  "separator in pwd")
+
 (defcustom mpwgen-schema `(noun adjective adverb)
   "word schema" )
 
@@ -78,8 +81,19 @@
 
 (defun mpwgen ()
   (interactive)
-  (message (mapconcat '(lambda (symbol) (funcall(intern  (concat "mpwgen-" (symbol-name symbol))))) mpwgen-schema " "))
+  (kill-new
+   (replace-regexp-in-string
+    " " "-"
+    (mpwgen-words))
+   nil))
+
+(defun mpwgen-words ()
+  (interactive)
+  (mapconcat #'(lambda (symbol) (funcall(intern  (concat "mpwgen-" (symbol-name symbol))))) mpwgen-schema mpwgen-sep)
   )
+
+(defun mpwgen-random-sep ()
+  (mpwgen-select "-" "/" "?" "=" "/"))
 
 (defun mpwgen-adverb ()
   (mpwgen-select
