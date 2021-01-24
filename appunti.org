@@ -1,0 +1,8 @@
+Serve di separare le configurazioni personali da quelle generali 
+
+Serve di definire in blocchi separati e commentabili le configurazioni
+per windows e per linux, oppure renderle condizionali (quando in windows etc.)
+
+Serve gestire il custom-file.el tra linux e windows, per font e per dimensioni frame
+
+creare famiglia di keybindings per funzioni "menizza" (C-c d space/minus/pipe/slash/CamelCase)
