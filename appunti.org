@@ -1,6 +1,8 @@
 Serve di separare le configurazioni personali da quelle generali: probabilmente meglio creare tre repo separati,
 uno per EMACS LM KIT (BI), uno per le mie configurazioni personali di Emacs, uno per tutti gli altri dotfiles.
 
+Default di tutti gli emacs opzione '-fw'
+
 Serve di definire in blocchi separati e commentabili le configurazioni
 per windows e per linux, oppure renderle condizionali (quando in windows etc.)
 
