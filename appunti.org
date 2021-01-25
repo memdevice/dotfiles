@@ -15,4 +15,4 @@ https://github.com/tecosaur/lexic
 
 trovata qui: https://www.reddit.com/r/emacs/comments/dm1x5c/offline_dictionary_lookup/
 
-E leggere anche questo, fino alla fine.
+E leggere anche questo, fino alla fine: http://tech.memoryimprintstudio.com/the-ultimate-offline-dictionary-with-dictd-in-linux/
