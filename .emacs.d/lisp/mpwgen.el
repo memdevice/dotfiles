@@ -43,11 +43,19 @@
 
 ;;; Usage:
 ;;
-;;  - customize mpwgen-schema with noun, adjective and adverb symbols
+;;  - customize mpwgen-schema or mpwgen-schema-short with symbols:
+;;    - noun, adjective and adverb
+;;    - digit and sep
+;;    the former can be upcase to have upcase component (as NOUN)
 ;;  - use command
 ;;  (mpwgen)
+;;    or
+;;  (mpwgen-short)
 ;;  - the generated password is now in the kill ring
-;;  - use yank (C-y)
+;;  - use yank C-y
+;;  - if mpwgen-emit is 'true, it yank directly
+;;  - optional prefix argument is the length of the single component
+;;
 
 
 ;;; Known Bugs:
@@ -67,11 +75,18 @@
 ;;
 ;;
 
-(defcustom mpwgen-sep  (mpwgen-random-sep)
+(defcustom mpwgen-sep  'mpwgen-random-sep
   "separator in pwd")
 
-(defcustom mpwgen-schema `(noun adjective adverb)
+
+(defcustom mpwgen-schema `(digit noun sep adjective sep adverb digit)
   "word schema" )
+
+(defcustom mpwgen-schema-short `(NOUN digit digit adjective)
+  "word schema" )
+
+(defcustom mpwgen-emit 'true
+  "emit string")
 
 (defun mpwgen-select (&rest alterns)
   "select one of the alterns - same probs"
@@ -79,21 +94,53 @@
          (index (random size)))
     (nth index alterns)))
 
-(defun mpwgen ()
-  (interactive)
-  (kill-new
-   (replace-regexp-in-string
-    " " "-"
-    (mpwgen-words))
-   nil))
-
-(defun mpwgen-words ()
-  (interactive)
-  (mapconcat #'(lambda (symbol) (funcall(intern  (concat "mpwgen-" (symbol-name symbol))))) mpwgen-schema mpwgen-sep)
-  )
-
 (defun mpwgen-random-sep ()
   (mpwgen-select "-" "/" "?" "=" "/"))
+
+(defun mpwgen--emit (schema len)
+  (kill-new (mpwgen-words schema len) nil)
+  (if mpwgen-emit (yank) nil))
+
+(defun mpwgen-short (arg)
+  (interactive "P")
+  (mpwgen--emit mpwgen-schema-short arg))
+
+(defun mpwgen (arg)
+  (interactive "P")
+  (mpwgen--emit mpwgen-schema arg))
+
+(defun mpwgen-limit (len word)
+  (if (and len (> (length word) len))
+      (substring word 0 len)
+    word))
+
+(defun mpwgen-words (schema len)
+  (mapconcat #'(lambda (symbol)
+                 (mpwgen-limit
+                  len
+                  (funcall
+                   (intern
+                    (concat "mpwgen-" (symbol-name symbol))))))
+             schema
+             ""
+             ))
+
+(defun mpwgen-NOUN ()
+  (upcase (mpwgen-noun)))
+
+(defun mpwgen-ADVERB ()
+  (upcase (mpwgen-noun)))
+
+(defun mpwgen-ADJECTIVE ()
+  (upcase (mpwgen-noun)))
+
+(defun mpwgen-digit ()
+  (number-to-string (random 10)))
+
+(defun mpwgen-sep ()
+  (if (symbolp mpwgen-sep)
+      (funcall mpwgen-sep)
+    mpwgen-sep))
 
 (defun mpwgen-adverb ()
   (mpwgen-select
@@ -59695,5 +59742,6 @@
    "zymosis"))
 
 (global-set-key (kbd "s-i p w") 'mpwgen)
+(global-set-key (kbd "s-i p s") 'mpwgen-short)
 
 (provide 'mpwgen)
