@@ -14,3 +14,5 @@ Per i dizionarii off-line studiare questa soluzione:
 https://github.com/tecosaur/lexic
 
 trovata qui: https://www.reddit.com/r/emacs/comments/dm1x5c/offline_dictionary_lookup/
+
+E leggere anche questo, fino alla fine.
