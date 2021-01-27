@@ -1,3 +1,9 @@
+
+
+ 
+
+https://www.dropbox.com/s/ueblyyz51o09yu4/Tag.2018.720p.BluRay.x264-%5BYTS.AM%5D.mp4?dl=0
+
 Serve di separare le configurazioni personali da quelle generali: probabilmente meglio creare tre repo separati,
 uno per EMACS LM KIT (BI), uno per le mie configurazioni personali di Emacs, uno per tutti gli altri dotfiles.
 
