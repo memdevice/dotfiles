@@ -1,0 +1,20 @@
+Serve di separare le configurazioni personali da quelle generali: probabilmente meglio creare tre repo separati,
+uno per EMACS LM KIT (BI), uno per le mie configurazioni personali di Emacs, uno per tutti gli altri dotfiles.
+
+Default di tutti gli emacs opzione '-fw'
+
+Serve di definire in blocchi separati e commentabili le configurazioni
+per windows e per linux, oppure renderle condizionali (quando in windows etc.)
+
+Serve gestire il custom-file.el tra linux e windows, per font e per dimensioni frame
+
+creare famiglia di keybindings per funzioni "menizza" (C-c d space/minus/pipe/slash/CamelCase)
+creare famiglia di keyb. per funzioni di insert, dove avere insert date e insert time (e firma, e fortun etc.)
+
+Per i dizionarii off-line studiare questa soluzione:
+
+https://github.com/tecosaur/lexic
+
+trovata qui: https://www.reddit.com/r/emacs/comments/dm1x5c/offline_dictionary_lookup/
+
+E leggere anche questo, fino alla fine: http://tech.memoryimprintstudio.com/the-ultimate-offline-dictionary-with-dictd-in-linux/

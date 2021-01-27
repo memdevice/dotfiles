@@ -1,4 +1,35 @@
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+Per semplificare il transito del codice da valutare ed, eventualmente, aggiungere, 
+creo un file separato in cui accumulare questi pezzi di LISP presi in giro.
+Questo e' diverso dalle funzioni "astratte" che si vorrebbe avere in Emacs, 
+ma che bisogna ancora cercare o creare.
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;; gennaio 2021
+
+(defun copy-line (arg)
+      "Copy lines (as many as prefix argument) in the kill ring"
+      (interactive "p")
+      (kill-ring-save (line-beginning-position)
+                      (line-beginning-position (+ 1 arg)))
+      (message "%d line%s copied" arg (if (= 1 arg) "" "s")))
+
+;; optional key binding
+(global-set-key "\C-c\C-k" 'copy-line)
+
+;; inserire al volo data e orario
+;; from: https://www.masteringemacs.org/article/mastering-key-bindings-emacs
+(defun mp-insert-date ()
+  (interactive)
+  (insert (format-time-string "%x")))
+
+(defun mp-insert-time ()
+  (interactive)
+  (insert (format-time-string "%X")))
+
+(global-set-key (kbd "C-c i d") 'mp-insert-date)
+(global-set-key (kbd "C-c i t") 'mp-insert-time)
+
+;; da Dell PC Xubuntu
 
 ;; Auto-wrap at 80 characters
 ;;(setq-default auto-fill-function 'do-auto-fill)
@@ -70,28 +101,5 @@
    nil))
 
 (global-set-key (kbd "C-c m") 'menizza)
-
-    (defun copy-line (arg)
-      "Copy lines (as many as prefix argument) in the kill ring"
-      (interactive "p")
-      (kill-ring-save (line-beginning-position)
-                      (line-beginning-position (+ 1 arg)))
-      (message "%d line%s copied" arg (if (= 1 arg) "" "s")))
-
-;; optional key binding
-(global-set-key "\C-c\C-k" 'copy-line)
-
-
-;; from: https://www.masteringemacs.org/article/mastering-key-bindings-emacs
-(defun mp-insert-date ()
-  (interactive)
-  (insert (format-time-string "%x")))
-
-(defun mp-insert-time ()
-  (interactive)
-  (insert (format-time-string "%X")))
-
-(global-set-key (kbd "C-c i d") 'mp-insert-date)
-(global-set-key (kbd "C-c i t") 'mp-insert-time)
 
 
