@@ -12,5 +12,4 @@
  '(column-number-mode t)
  '(cua-mode t nil (cua-base))
  '(custom-enabled-themes '(leuven))
- '(display-time-mode t)
  '(tool-bar-mode nil))
