@@ -16,7 +16,10 @@ ma che bisogna ancora cercare o creare.
 
 OPPURE
 
-You can do (require 'foo) and that will load the first "foo.el" elisp finds in your load path, or (require 'foo "/home/user/experimental/foo.el") for something outside your load path. It will report an error if "foo.el" does not contain the expression (provide 'foo). In a perverse situation you could do (require 'foo "bar.el"), and this would work as long as "bar.el" had a (provide 'foo) claus
+You can do (require 'foo) and that will load the first "foo.el" elisp finds in your load path, 
+or (require 'foo "/home/user/experimental/foo.el") for something outside your load path. 
+It will report an error if "foo.el" does not contain the expression (provide 'foo). 
+In a perverse situation you could do (require 'foo "bar.el"), and this would work as long as "bar.el" had a (provide 'foo) clause.
 
 ;;;; gennaio 2021
 
