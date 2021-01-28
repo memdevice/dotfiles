@@ -1,4 +1,4 @@
-* a bare repository for my dotfiles
+* a bare repo for my dotfiles
 
 Questo repository contiene i miei file di configurazione Unix, i /dotfiles/ appunto, e sfrutta la tecnica del /bare repository/, appresa nei link citati in fondo. Per il momento contiene solo quelli di Emacs, da cui ho cominciato la migrazione qui dei miei file .qualcosa. 
 
