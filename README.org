@@ -1,4 +1,4 @@
-** Sequenza di aggiornamento dalla directory OSIRIDE -> github
+** Sequenza di aggiornamento dalla directory Linux -> github
 
 #+BEGIN_SRC
 dotfile status 
