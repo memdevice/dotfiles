@@ -37,6 +37,10 @@
 (global-set-key (kbd "C-x k") 'kill-current-buffer)
 ;; LMNB: "current" e non "this"!
 
+;; Font size
+(define-key global-map (kbd "C-+") 'text-scale-increase)
+(define-key global-map (kbd "C--") 'text-scale-decrease)
+
 ;; ――――――――――――――――――― LM from package  ―――――――――――――
 
 ;; lorem-ipsum
@@ -57,6 +61,10 @@
 (global-set-key (kbd "C-c i r n") 'xah-insert-random-number)
 (global-set-key (kbd "C-c i r s") 'xah-insert-random-string)
 (global-set-key (kbd "C-c i r h") 'xah-insert-random-hex)
+
+
+
+
 
 ;; (s)memorandum
 

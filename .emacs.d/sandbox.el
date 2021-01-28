@@ -1,3 +1,14 @@
+
+;; word-count minor mode
+;; cfr. https://github.com/tomaszskutnik/word-count-mode
+;; word-count.el - Counting word for Emacsen.
+(autoload 'word-count-mode "word-count"
+          "Minor mode to count words." t nil)
+;;
+(global-set-key "\M-+" 'word-count-mode)
+
+
+
 ;; copiare la riga corrente, una delle tante soluzioni
 (defun copy-line (arg)
       "Copy lines (as many as prefix argument) in the kill ring"
