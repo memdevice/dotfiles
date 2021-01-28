@@ -1,4 +1,10 @@
-** Sequenza di aggiornamento dalla directory OSIRIDE -> github
+* a bare repo for my dotfiles
+
+Questo repository contiene i miei file di configurazione Unix, i /dotfiles/ appunto, e sfrutta la tecnica del /bare repository/, appresa nei link citati in fondo. Per il momento contiene solo quelli di Emacs, da cui ho cominciato la migrazione qui dei miei file .qualcosa. 
+
+Avendo imparato quasi tutto a riguardo da altri utenti che hanno gentilmente condiviso e commentato le loro configurazioni on-line, condividere le mie, pur banali, mi pare il modo migliore di restituire il favore, "passandolo".
+
+** Sequenza di aggiornamento dalla directory Linux -> github
 
 #+BEGIN_SRC
 dotfile status 
@@ -20,6 +26,32 @@ echo ".dotfiles" >> .gitignore
 git clone --bare https://www.github.com/memdevice/dotfiles.git $HOME/.dotfiles
 dotfiles checkout
 dotfiles config --local status.showUntrackedFiles no
+#+END_SRC
+
+* memo
+
+GitHub e' passato ad avere "main" come repository principale, invece del solito "master".
+
+Creando un nuovo repository vuoto dall'interfaccia web, si ottiene ora il modo piu' semplice di inizializzare correttamente il repository locoale, a riga di comando. 
+
+** …or create a new repository on the command line
+
+#+BEGIN_SRC
+echo "# pippo" >> README.md
+git init
+git add README.md
+git commit -m "first commit"
+git branch -M main
+git remote add origin https://github.com/memdevice/pippo.git
+git push -u origin main
+#+END_SRC
+
+** …or push an existing repository from the command line
+
+#+BEGIN_SRC
+git remote add origin https://github.com/memdevice/pippo.git
+git branch -M main
+git push -u origin main
 #+END_SRC
 
 ** cfr:

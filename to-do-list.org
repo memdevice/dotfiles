@@ -1,0 +1,5 @@
+Implementazione di Word Count
+
+- Select a region.
+-  Run M-=, or M-| wc for older versions of emacs.
+- See the count of lines, words, and characters, in the mode-line.
