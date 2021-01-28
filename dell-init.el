@@ -14,32 +14,6 @@
 
 ;;;;;;;;
 
-;;  ___________________ cygwin shell _________________________________
-
-;; LM: usare la bash di cygwin
-;; da: https://www.masteringemacs.org/article/running-shells-in-emacs-overview
-;;
-(setq explicit-shell-file-name "c:/cygwin64/bin/bash.exe")
-(setq shell-file-name "bash")
-(setq explicit-bash.exe-args '("--noediting" "--login" "-i"))
-(setenv "SHELL" shell-file-name)
-(add-hook 'comint-output-filter-functions 'comint-strip-ctrl-m)
-
-
-;; LM private and personal configuration
-;; (load "~/.emacs.d/myconfig")
-
-
-;; Supply a random fortune cookie as the *scratch* message.
-;; (using internal function.el...)
- (when (executable-find "fortune")
-   (setq initial-scratch-message
-         (with-temp-buffer
-           (shell-command "fortune" t)
-           (let ((comment-start ";;"))
-             (comment-region (point-min) (point-max)))
-           (concat (buffer-string) "\n"))))
-
 
 ;; using thesaurus offline in d:\home\dict
 ;; (require 'mthesaur)
@@ -49,13 +23,6 @@
 ;; password pronunciabili
 ;; grazie Exedre!
 (mpwgen)  ; visualizzane una in message buffer
-
-
-;; finestra verticale quasi 4:3 (chars x lines)
-;; (when window-system
-;;   (set-frame-position (selected-frame) 42 42)
-;;   (set-frame-size (selected-frame) 72 52))
-;; NB: alternativa l'opzione ‘-fh’ ‘--fullheight’ da command line
 
 ;; gentilmente by Exedre,
 ;; autore anche del nome della funzione
