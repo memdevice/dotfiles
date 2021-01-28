@@ -51,4 +51,49 @@ In a perverse situation you could do (require 'foo "bar.el"), and this would wor
 
 (global-set-key (kbd "C-c m") 'menizza)
 
+;; from DELL PC
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; Auto-wrap at 80 characters
+;;(setq-default auto-fill-function 'do-auto-fill)
+;;(setq-default fill-column 80)
+;;(turn-on-auto-fill)
+;; Disable auto-fill-mode in programming mode
+;;(add-hook 'prog-mode-hook (lambda () (auto-fill-mode -1)))
+
+;; Non-nil means draw block cursor as wide as the glyph under it.
+;; For example, if a block cursor is over a tab, it will be drawn as
+;; wide as that tab on the display.
+;; (setq x-stretch-cursor t)
+
+;;;;;;;;
+
+
+;; using thesaurus offline in d:\home\dict
+;; (require 'mthesaur)
+;; (global-set-key "\C-ct" 'mthesaur-search)
+;; (global-set-key "\C-c\C-t" 'mthesaur-search-append)
+
+;; password pronunciabili
+;; grazie Exedre!
+(mpwgen)  ; visualizzane una in message buffer
+
+;; gentilmente by Exedre,
+;; autore anche del nome della funzione
+
+(defun menizza ()
+  (interactive)
+  (kill-new
+   (replace-regexp-in-string
+    " " "-"
+    (buffer-substring-no-properties
+     (region-beginning) (region-end)))
+   nil))
+
+(global-set-key (kbd "C-c m") 'menizza)
+
+
+
+
 
