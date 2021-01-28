@@ -28,6 +28,32 @@ dotfiles checkout
 dotfiles config --local status.showUntrackedFiles no
 #+END_SRC
 
+* memo
+
+GitHub e' passato ad avere "main" come repository principale, invece del solito "master".
+
+Creando un nuovo repository vuoto dall'interfaccia web, si ottiene ora il modo piu' semplice di inizializzare correttamente il repository locoale, a riga di comando. 
+
+** …or create a new repository on the command line
+
+#+BEGIN_SRC
+echo "# pippo" >> README.md
+git init
+git add README.md
+git commit -m "first commit"
+git branch -M main
+git remote add origin https://github.com/memdevice/pippo.git
+git push -u origin main
+#+END_SRC
+
+** …or push an existing repository from the command line
+
+#+BEGIN_SRC
+git remote add origin https://github.com/memdevice/pippo.git
+git branch -M main
+git push -u origin main
+#+END_SRC
+
 ** cfr:
 
 - https://martijnvos.dev/using-a-bare-git-repository-to-store-linux-dotfiles/
