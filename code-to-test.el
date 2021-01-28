@@ -4,6 +4,20 @@ Questo e' diverso dalle funzioni "astratte" che si vorrebbe avere in Emacs,
 ma che bisogna ancora cercare o creare.
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+; ---------------------------------
+; Activate Package's Configurations
+; ---------------------------------
+
+; load shortcut keys
+(load "~/.emacs.d/shortcuts.el")
+
+; load org-mode config
+(load "~/.emacs.d/org-mode.el")
+
+OPPURE
+
+You can do (require 'foo) and that will load the first "foo.el" elisp finds in your load path, or (require 'foo "/home/user/experimental/foo.el") for something outside your load path. It will report an error if "foo.el" does not contain the expression (provide 'foo). In a perverse situation you could do (require 'foo "bar.el"), and this would work as long as "bar.el" had a (provide 'foo) claus
+
 ;;;; gennaio 2021
 
 (defun copy-line (arg)
