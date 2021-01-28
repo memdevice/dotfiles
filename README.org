@@ -2,7 +2,7 @@
 
 Questo repository contiene i miei file di configurazione Unix, i /dotfiles/ appunto, e sfrutta la tecnica del /bare repository/, appresa nei link citati in fondo. Per il momento contiene solo quelli di Emacs, da cui ho cominciato la migrazione qui dei miei file .qualcosa. 
 
-Avendo imparato quasi tutto a riguardo, da altri utenti che hanno gentilmente condiviso e commentato le loro configurazioni on-line, condividere le mie, pur banali, mi pare il modo migliore di restituire il favore, "passandolo".
+Avendo imparato quasi tutto a riguardo da altri utenti che hanno gentilmente condiviso e commentato le loro configurazioni on-line, condividere le mie, pur banali, mi pare il modo migliore di restituire il favore, "passandolo".
 
 ** Sequenza di aggiornamento dalla directory Linux -> github
 
