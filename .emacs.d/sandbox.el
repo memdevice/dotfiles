@@ -1,13 +1,31 @@
-
-;; word-count minor mode
-;; cfr. https://github.com/tomaszskutnik/word-count-mode
-;; word-count.el - Counting word for Emacsen.
-(autoload 'word-count-mode "word-count"
-          "Minor mode to count words." t nil)
+;; Update emacs unicode data database
 ;;
-(global-set-key "\M-+" 'word-count-mode)
+;; download: https://www.unicode.org/Public/UCD/latest/ucd/UnicodeData.txt
+;; Put that file in your emacs init dir. Put this in your emacs init file:
+(when (file-exists-p "~/.emacs.d/UnicodeData.txt")
+  (setq describe-char-unicodedata-file "~/.emacs.d/UnicodeData.txt"))
 
+;;  ___________________ fill mode ____________________________________
 
+;; If you keep hitting M-q to fill your paragraphs (see FillParagraph),
+;; then auto-fill-mode is for you.
+;; It doesn’t get rid of M-q altogether but it is a
+;; very good approximation: Type M-x auto-fill-mode to activate the
+;; MinorMode for the current buffer, or put the following in your .emacs
+;; to activate it for all text mode buffers:
+;;(add-hook 'text-mode-hook 'turn-on-auto-fill)
+;; <---AUT AUT
+;;If you want Emacs to ask you whether to use Auto Fill Mode when opening
+;;a text file, you can do:
+;; (add-hook 'text-mode-hook
+;;           (lambda ()
+;;             (when (y-or-n-p "Auto Fill mode? ")
+;;               (turn-on-auto-fill))))
+;; AUT AUT --->
+
+;; cfr. https://www.emacswiki.org/emacs/AutoFillMode
+
+;;;; LM: decido di eliminare entrambi e tornare al word wrap e ""una linea un paragrafo""
 
 ;; copiare la riga corrente, una delle tante soluzioni
 (defun copy-line (arg)
@@ -69,3 +87,34 @@ Version 2018-08-03"
          ($baseCount (length $charset)))
     (dotimes (_ (if (numberp NUM) (abs NUM) 16))
       (insert (elt $charset (random $baseCount))))))
+
+(defun date (arg)
+   (interactive "P")
+   (insert (if arg
+               (format-time-string "%d.%m.%Y")
+             (format-time-string "%Y-%m-%d"))))
+
+(defun timestamp ()
+   (interactive)
+   (insert (format-time-string "%Y-%m-%dT%H:%M:%S")))
+
+
+(defun duplicate-line()
+  (interactive)
+  (move-beginning-of-line 1)
+  (kill-line)
+  (yank)
+  (open-line 1)
+  (next-line 1)
+  (yank)
+)
+
+
+(defun menizza ()
+  (interactive)
+  (kill-new
+   (replace-regexp-in-string
+    " " "-"
+    (buffer-substring-no-properties
+     (region-beginning) (region-end)))
+   nil))

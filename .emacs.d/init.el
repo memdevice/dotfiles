@@ -1,9 +1,48 @@
 ;;
-;; LM init file -- 20210128
+;; LM init file -- 20210209 --
 ;;
 
 ;; random first, alea later
 (random t) ; seed random number
+
+;; time is an illusion, lunchtime doubly so
+
+;; Format yyyy-mm-dd
+;(format-time-string "%Y-%m-%d")
+;; unix time
+;(format-time-string "%s") ; "1291104066"
+
+;;(insert (current-time-string))
+;; funziona ma scrive sullo scratch, cancellenado il fortune
+
+;; (insert (format-time-string "%s"))
+
+;;  ___________________ UTF-8 ________________________________________
+
+
+;; UTF-8 as default encoding
+(set-language-environment "UTF-8")
+
+;; e altro
+;; (prefer-coding-system 'utf-8)
+(prefer-coding-system 'utf-8-unix)
+(set-default-coding-systems 'utf-8)
+(set-terminal-coding-system 'utf-8)
+(set-keyboard-coding-system 'utf-8)
+;; backwards compatibility as default-buffer-file-coding-system
+;; is deprecated in 23.2.
+;; (if (boundp 'buffer-file-coding-system)
+;;     (setq-default buffer-file-coding-system 'utf-8)
+;;   (setq default-buffer-file-coding-system 'utf-8))
+
+;; make unix lineendings default
+(setq default-buffer-file-coding-system 'utf-8-unix)
+;; Verify with C-h v buffer-file-coding-system.
+;; It should say "global value is utf-8-unix".
+
+
+;; Treat clipboard input as UTF-8 string first; compound text next, etc.
+(setq x-select-request-type '(UTF8_STRING COMPOUND_TEXT TEXT STRING))
 
 ;; LM:________________________________________________________________
 ;;
@@ -32,6 +71,11 @@
 ;;     interazione utente i.e. "better default"
 ;; ___________________________________________________________________
 
+;; no lock file (#filename.ext#)
+;; (setq create-lockfiles nil)
+;; LM: questi preferisco tenerli e cancellarli a mano
+;;   finche' non trovo il modo di spostare anche questi altrove
+
 ;; breviter
 (defalias 'yes-or-no-p 'y-or-n-p)
 
@@ -56,6 +100,14 @@
 ;; auto close bracket insertion.
 ;; typing any left bracket automatically insert the right matching bracket
 (electric-pair-mode 1)
+
+;; default incremental search: case insensitive
+(setq case-fold-search t) ; make searches case insensitive
+
+;;
+;; Similarly, for replacing, the variable case-replace determines
+;; whether replacements preserve case.
+;; You can also toggle case sensitivity at will in isearch with M-c.
 
 ;; avvio condizionale del server, se non gia' attivo
 ;; (require 'server)
@@ -163,31 +215,18 @@ Version 2017-11-01"
 ;; genratore di password pronunciabili by EXE
 ;; (require 'mpwgen)
 
+;; word-count minor mode
+;; cfr. https://github.com/tomaszskutnik/word-count-mode
+;; word-count.el - Counting word for Emacsen.
+(autoload 'word-count-mode "word-count"
+          "Minor mode to count words." t nil)
+
 ;; LM:________________________________________________________________
 ;;
 ;;     cose sperimentali da testare prima
 ;; ___________________________________________________________________
 
 (load "~/.emacs.d/sandbox.el")
-
-;;  ___________________ UTF-8 ________________________________________
-
-(prefer-coding-system 'utf-8)
-(set-default-coding-systems 'utf-8)
-(set-terminal-coding-system 'utf-8)
-(set-keyboard-coding-system 'utf-8)
-;; backwards compatibility as default-buffer-file-coding-system
-;; is deprecated in 23.2.
-;; (if (boundp 'buffer-file-coding-system)
-;;     (setq-default buffer-file-coding-system 'utf-8)
-;;   (setq default-buffer-file-coding-system 'utf-8))
-
-;; Treat clipboard input as UTF-8 string first; compound text next, etc.
-(setq x-select-request-type '(UTF8_STRING COMPOUND_TEXT TEXT STRING))
-
-;; make unix lineendings default
-(setq-default buffer-file-coding-system 'utf-8-unix)
-;; Verify with C-h v buffer-file-coding-system. It should say "global value is utf-8-unix".
 
 ;;  ___________________ cygwin shell _________________________________
 
@@ -209,6 +248,7 @@ Version 2017-11-01"
            (let ((comment-start ";;"))
              (comment-region (point-min) (point-max)))
            (concat (buffer-string) "\n"))))
+;;           (concat (buffer-string) "\n;"'(insert (current-time-string))"\n"))))
 
 
 ;; using thesaurus offline in d:\home\dict
@@ -223,13 +263,19 @@ Version 2017-11-01"
 ;;     interfaccia utente
 ;; ___________________________________________________________________
 
+;; la settimana inizia di lunedí
+(setq calendar-week-start-day 1)
+
+;; visualizza le coppie di parentesi (in attesa di trovar di meglio)
+(show-paren-mode 1)
+
 ;; Non-nil means draw block cursor as wide as the glyph under it.
 ;; For example, if a block cursor is over a tab, it will be drawn as
 ;; wide as that tab on the display.
 (setq x-stretch-cursor t)
 
 ;; LM: always on word wrap / truncate long lines
-; (setq-default word-wrap t)
+(setq-default word-wrap t)
 ; (setq-default truncate-lines t)
 
 ;; Do not show the startup screen.
@@ -246,6 +292,7 @@ Version 2017-11-01"
 ;; Highlight current line
 (global-hl-line-mode t)
 
+
 ;; Time in the modeline - I like having the clock.
 ;; (display-time-mode 1)
 ;; LM allineato a dx e senza secondi centesimi etc.
@@ -261,7 +308,12 @@ Version 2017-11-01"
 ; (setq initial-buffer-choice 'xah-new-empty-buffer)
 
 ;; title bar
-(setq frame-title-format (format " ――――――  |    EscMetaAltControlShift  42   |  ――――――――――――――――― ")) ; LM own (64 char)
+;;(setq frame-title-format '(" ――――――  |    EscMetaAltControlShift  42   |  ――――――――――――――――― ")); LM own (64 char)
+(setq frame-title-format '(" ――――――  | EscMetaAltControlShift - 42   |  ――――――――――――――――― ")) ; LM own (64 char)
+
+;;(setq frame-title-format '("%b"))
+;; inserisce il nome del buffer, ma non riesco a integrarlo sopra
+
 
 ;; LM:________________________________________________________________
 ;;
