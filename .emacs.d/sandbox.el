@@ -1,3 +1,103 @@
+;; (defalias 'qrr 'query-replace-regexp)
+;; M-x qrr
+
+
+;; EOL function
+
+
+;; Here's a function that – I think – shows how to check from elisp what Emacs has determined to be the type of line endings. If it looks inordinately complicated, perhaps it is.
+
+;; (defun describe-eol ()
+;;   (interactive)
+;;   (let ((eol-type (coding-system-eol-type buffer-file-coding-system)))
+;;     (when (vectorp eol-type)
+;;       (setq eol-type (coding-system-eol-type (aref eol-type 0))))
+;;     (message "Line endings are of type: %s"
+;;              (case eol-type
+;;                (0 "Unix") (1 "DOS") (2 "Mac") (t "Unknown")))))
+
+;; ———————————————————————————————————————————————————————————————————
+
+;; Recycle Bin
+;; The following line configures Emacs so that files deleted via Emacs are moved to the Recycle.
+(setq delete-by-moving-to-trash t)
+
+
+;; Emacs rather than starting a new instance for each file.Putting these two lines in .emacs creates a menu item File -> Open recent.
+;;(require 'recentf)
+;;(recentf-mode 1)
+
+;; Enabling commands to change case
+;; The commands for converting the text in a region to upper or lower case are disabled by default. (The GNU Emacs manual says beginners find these commands confusing and so you have turn them on. That seems very strange. Many other Emacs commands are more confusing.) The following turns the commands on.
+(put 'upcase-region 'disabled nil)
+(put 'downcase-region 'disabled nil)
+;;Once this is enabled, you can make the text in a region
+;;lowercase with C-x C-l or uppercase with C-x C-u.
+
+
+;; da: https://www.johndcook.com/blog/emacs_windows/
+
+
+;; time is an illusion, lunchtime doubly so
+
+;; Format yyyy-mm-dd
+;(format-time-string "%Y-%m-%d")
+;; unix time
+;(format-time-string "%s") ; "1291104066"
+
+;;(insert (current-time-string))
+;; funziona ma scrive sullo scratch, cancellenado il fortune
+
+;; (insert (format-time-string "%s"))
+
+;;  ___________________ UTF-8 ________________________________________
+
+
+;; Xah Lee - Set default encoding system for opening and saving
+;; UTF-8 as default encoding
+(set-language-environment "UTF-8")
+;; e forse in aggiunta basta solo questo
+;; (per lasciare ad Emacs maggiore flessibilita')
+;;(prefer-coding-system 'utf-8) ;; LM: se attivo questo, ORG non si visulaizza bene
+
+;;
+;; (set-default-coding-systems 'utf-8)
+;; (set-terminal-coding-system 'utf-8)
+;; (set-keyboard-coding-system 'utf-8)
+;; backwards compatibility as default-buffer-file-coding-system
+;; is deprecated in 23.2.
+;; (if (boundp 'buffer-file-coding-system)
+;;     (setq-default buffer-file-coding-system 'utf-8)
+;;   (setq default-buffer-file-coding-system 'utf-8))
+
+;; make unix lineendings default
+;; (setq default-buffer-file-coding-system 'utf-8-unix)
+;; Verify with C-h v buffer-file-coding-system.
+;; It should say "global value is utf-8-unix".
+
+
+;; Treat clipboard input as UTF-8 string first; compound text next, etc.
+(setq x-select-request-type '(UTF8_STRING COMPOUND_TEXT TEXT STRING))
+
+
+
+;;  ___________________     org mode     ____________________________________
+
+;; di default in org la selezione con shift e' disabilitata
+;; ho provato ad abilitarla, vediamo che accade (ci sono controindicazioni)
+
+
+;;  _______________   LM own function     ___________________________________
+
+(global-set-key (kbd "C-c u")
+                '(lambda ()
+                   (interactive)
+                   (insert (format-time-string "%s"))))
+
+ ;; devo pensare a qualcosa di meglio per i tasti C-c t u oppure C-c i t u
+
+;;  __________________ UNICODE DB update ____________________________________
+
 ;; Update emacs unicode data database
 ;;
 ;; download: https://www.unicode.org/Public/UCD/latest/ucd/UnicodeData.txt

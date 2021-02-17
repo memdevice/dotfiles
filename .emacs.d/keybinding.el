@@ -1,3 +1,7 @@
+;; keybinding.el
+
+;; ―――――――――――――――――――  function keys  ―――――――――――――――――――――――――――――――
+
 ;; better keybindings
 ;; cfr: https://www.masteringemacs.org/article/my-emacs-keybindings
 
@@ -32,40 +36,7 @@
 ;; (global-set-key (kbd "C-x C-b") 'kill-other-buffers)   ; C-x C-b
 (global-set-key (kbd "<f12>") 'kill-other-buffers) ; F12
 
-;; C-x k --  kill current buffer, no question!
-;; cfr: https://stackoverflow.com/questions/6467002/how-to-kill-buffer-in-emacs-without-answering-confirmation
-(global-set-key (kbd "C-x k") 'kill-current-buffer)
-;; LM NB: "current" e non "this"!
-
-;; C-+ / C-- Font size
-(define-key global-map (kbd "C-+") 'text-scale-increase)
-(define-key global-map (kbd "C--") 'text-scale-decrease)
-
-;; C-c q -- toggle quickly auto-fill-mode on/off
-(global-set-key (kbd "C-c q") 'auto-fill-mode)
-
-;; cycle through buffers
-(global-set-key (kbd "<C-tab>") 'bury-buffer)
-
-;; attiva la funzione duplicate-line, con un tasto che ricorda yyp di VI
-(global-set-key (kbd "C-c y") 'duplicate-line)
-
-
-;; ――――――――――――――――――― LM from package  ―――――――――――――
-
-;; lorem-ipsum
-;; C-c l p 	lorem-ipsum-insert-paragraphs
-;; C-c l s 	lorem-ipsum-insert-sentences
-;; C-c l l 	lorem-ipsum-insert-list
-
-;; mthesaur
-(global-set-key "\C-ct" 'mthesaur-search)
-(global-set-key "\C-c\C-t" 'mthesaur-search-append)
-
-;; word count, minor mode (ha qualche problema al caricamento)
-(global-set-key "\M-+" 'word-count-mode)
-
-;; ――――――――――― C-c : user defined keybindings――――――――――
+;; ―――――――――――  C-c : user defined keybindings  ――――――――――――――――――――――
 
 ;;;  C-c i -- branch : insert
 
@@ -77,6 +48,44 @@
 ;; funzione by EXEDRE (devo spostarla su una famiglia di keybindings)
 (global-set-key (kbd "C-c m") 'menizza)
 
+;; attiva la funzione duplicate-line, con un tasto che ricorda yyp di VI
+(global-set-key (kbd "C-c y") 'duplicate-line)
+
+;; C-c q -- toggle quickly auto-fill-mode on/off
+(global-set-key (kbd "C-c q") 'auto-fill-mode)
+
+;; FROM PACKAGE: lorem-ipsum
+;; C-c l p 	lorem-ipsum-insert-paragraphs
+;; C-c l s 	lorem-ipsum-insert-sentences
+;; C-c l l 	lorem-ipsum-insert-list
+
+;; FROM PACKAGE: mthesaur
+(global-set-key "\C-ct" 'mthesaur-search)
+(global-set-key "\C-c\C-t" 'mthesaur-search-append)
+
+
+;; ―――――――――――  C-x : remap!  ――――――――――――――――――――――――――――――――――――――――
+
+;; C-x k --  kill current buffer, no question!
+;; cfr: https://stackoverflow.com/questions/6467002/how-to-kill-buffer-in-emacs-without-answering-confirmation
+(global-set-key (kbd "C-x k") 'kill-current-buffer)
+;; LM NB: "current" e non "this"!
+
+
+;; ―――――――――――  C-<something> : more remap!!  ――――――――――――――――――――――――
+
+;; C-+ / C-- Font size
+(define-key global-map (kbd "C-+") 'text-scale-increase)
+(define-key global-map (kbd "C--") 'text-scale-decrease)
+
+;; cycle through buffers
+(global-set-key (kbd "<C-tab>") 'bury-buffer)
+
+
+;; ―――――――――――――――――――  keybindings from package or mode  ――――――――――――
+
+;; FROM MODE: word count, minor mode (ha qualche problema al caricamento)
+(global-set-key "\M-+" 'word-count-mode)
 
 ;; (s)memorandum
 

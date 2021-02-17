@@ -1,48 +1,9 @@
 ;;
-;; LM init file -- 20210209 --
+;; LM init file -- 20210209 -- 1612885245
 ;;
 
-;; random first, alea later
+;; LM: random first, alea later
 (random t) ; seed random number
-
-;; time is an illusion, lunchtime doubly so
-
-;; Format yyyy-mm-dd
-;(format-time-string "%Y-%m-%d")
-;; unix time
-;(format-time-string "%s") ; "1291104066"
-
-;;(insert (current-time-string))
-;; funziona ma scrive sullo scratch, cancellenado il fortune
-
-;; (insert (format-time-string "%s"))
-
-;;  ___________________ UTF-8 ________________________________________
-
-
-;; UTF-8 as default encoding
-(set-language-environment "UTF-8")
-
-;; e altro
-;; (prefer-coding-system 'utf-8)
-(prefer-coding-system 'utf-8-unix)
-(set-default-coding-systems 'utf-8)
-(set-terminal-coding-system 'utf-8)
-(set-keyboard-coding-system 'utf-8)
-;; backwards compatibility as default-buffer-file-coding-system
-;; is deprecated in 23.2.
-;; (if (boundp 'buffer-file-coding-system)
-;;     (setq-default buffer-file-coding-system 'utf-8)
-;;   (setq default-buffer-file-coding-system 'utf-8))
-
-;; make unix lineendings default
-(setq default-buffer-file-coding-system 'utf-8-unix)
-;; Verify with C-h v buffer-file-coding-system.
-;; It should say "global value is utf-8-unix".
-
-
-;; Treat clipboard input as UTF-8 string first; compound text next, etc.
-(setq x-select-request-type '(UTF8_STRING COMPOUND_TEXT TEXT STRING))
 
 ;; LM:________________________________________________________________
 ;;
@@ -60,11 +21,22 @@
 ;;  Tell emacs where is your personal elisp lib dir
 (add-to-list 'load-path "~/.emacs.d/lisp/")
 
-;; aggiungo la direcotry dei temi alla variabile specifica
-(add-to-list 'custom-theme-load-path "~/.emacs.d/themes/")
-;; NB:
-;; per aggiungere le subdir guarda qui, in basso:
+;; aggiungo la directory dei temi alla variabile specifica
+;; NB: per aggiungere le subdir guarda qui, in basso:
 ;; https://www.emacswiki.org/emacs/CustomThemes
+(add-to-list 'custom-theme-load-path "~/.emacs.d/themes/")
+
+;; LM function, progetto di configurazione di Emacs standard
+(load "~/.emacs.d/function.el")
+
+;; LM keybindings, sia associati alle funzioni sopra, sia indipendenti
+(load "~/.emacs.d/keybinding.el")
+
+;; LM sandbox (cose sperimentali da testare, prima di inserirle in init.el)
+(load "~/.emacs.d/sandbox.el")
+
+;; LM private or personal configuration and data
+;; (load "~/.emacs.d/lm-config")
 
 ;; LM:________________________________________________________________
 ;;
@@ -90,11 +62,10 @@
 ;;  LM  non sembra necessario...
 
 ;; View mode (M-x view-mode)
-
+;;
 ;; Provide pager-like keybindings. Makes navigating read-only buffers a breeze.
 ;; Move down and up with SPC and delete (backspace) or S-SPC,
 ;; half a page down and up with d and u, and isearch with s.
-
 (setq view-read-only t)   ; LM NB: il view-mode classico si attiva con C-c C-q
 
 ;; auto close bracket insertion.
@@ -113,61 +84,6 @@
 ;; (require 'server)
 ;; (unless (server-running-p)
 ;;   (server-start))
-
-;; ―――――――――――――――――――  LM emacs standard add on  ―――――――――――――――――――――――――――――
-
-;; LM configurazioni di Emacs standard, senza installare pacakge
-;; ovvero "emacs with batteeries included"...
-
-;; Kill Other Buffers
-;; Here is a simple function that kills all buffers, except the current one.
-(defun kill-other-buffers ()
-  "Kill all other buffers."
-  (interactive)
-  (mapc 'kill-buffer (delq (current-buffer) (buffer-list))))
-
-;; recentf on --- keep a list of recently opened files
-(require 'recentf)
-(recentf-mode 1)
-(setq recentf-max-saved-items 256)
-(setq recentf-max-menu-items 42)
-
-;; This calls another custom command of mine, revert-this-buffer. It does
-;; exactly what the name implies: it reverts (reloads from file) the current
-;; buffer without asking any questions. It will notify you in the minibuffer
-;; area that it did it. (da https://www.masteringemacs.org/)
-
-(defun revert-this-buffer ()
-  (interactive)
-  (revert-buffer nil t t)
-  (message (concat "Reverted buffer " (buffer-name))))
-
-;; Here's a command to open a new empty buffer, without prompting for a name.
-
-(defun xah-new-empty-buffer ()
-  "Create a new empty buffer.
-New buffer will be named “untitled” or “untitled<2>”, “untitled<3>”, etc.
-
-It returns the buffer (for elisp programing).
-
-URL `http://ergoemacs.org/emacs/emacs_new_empty_buffer.html'
-Version 2017-11-01"
-  (interactive)
-  (let (($buf (generate-new-buffer "fourtytwo")))
-    (switch-to-buffer $buf)
-    (funcall initial-major-mode)
-    (setq buffer-offer-save t)
-    $buf
-    ))
-
-;; reload emacs dofile (init.el) keybind
-;; It would be handy to have a global key binding to reload .emacs
-;; rather than go through the incredibly laborious process of
-;; M-x load-file (delete a long string if I'm deep into some directory)
-;;  ~/.emacs <RET>.
-(defun reload-dotemacs ()
-  (interactive)
-  (load-file "~/.emacs.d/init.el"))
 
 ;; ――――――――――――――――――― LM interazione con utente (completamento) ―――――――――――――
 
@@ -195,13 +111,6 @@ Version 2017-11-01"
 
 ;; LM:________________________________________________________________
 ;;
-;;     keybindings
-;; ___________________________________________________________________
-
-(load "~/.emacs.d/keybinding.el")
-
-;; LM:________________________________________________________________
-;;
 ;;    package installed by hand
 ;; ___________________________________________________________________
 
@@ -220,13 +129,6 @@ Version 2017-11-01"
 ;; word-count.el - Counting word for Emacsen.
 (autoload 'word-count-mode "word-count"
           "Minor mode to count words." t nil)
-
-;; LM:________________________________________________________________
-;;
-;;     cose sperimentali da testare prima
-;; ___________________________________________________________________
-
-(load "~/.emacs.d/sandbox.el")
 
 ;;  ___________________ cygwin shell _________________________________
 
@@ -322,15 +224,7 @@ Version 2017-11-01"
 
 ;; none
 
-;; LM:________________________________________________________________
-
-;; LM private or personal configuration
-;; (load "~/.emacs.d/lm-config")
-
 ;; ___________________________________________________________________
-
-
-;;    ________________________________________________________________
 ;; LM:
-;;                             T h e   E n d
+;; LM:                            T h e   E n d
 ;; ___________________________________________________________________
