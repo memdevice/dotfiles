@@ -1,6 +1,6 @@
-;;
-;; LM:    2021-02-18
-;;    init.el
+;;     init.el
+;; LM :        2021-02-19 | 2021-050 | 1613749572
+;;     init.el
 
 (random t)                          ;; random first, alea later
 (setq inhibit-startup-message t)    ;; no startup screen, only scratch buffer
@@ -18,7 +18,9 @@
 (defalias 'yes-or-no-p 'y-or-n-p)   ;; breviter
 (setq-default fill-column 72)       ;; fill column: 72 (M-q)
 ;;(setq case-fold-search t)         ;; make searches case insensitive
-(ffap-bindings)                     ;; find-file-at-point: smarter C-x C-f (point on path or URL)
+(setq delete-by-moving-to-trash t)  ;; files deleted via Emacs are moved to the Recycle Bin
+(ffap-bindings)                     ;; find-file-at-point:
+                                    ;; smarter C-x C-f (point on path or URL)
 
 (add-hook 'before-save-hook 'delete-trailing-whitespace) ;; ...before saving
 
@@ -47,7 +49,14 @@
 ;; LISP code test here
 (load "~/.emacs.d/sandbox.el")
 
+;; ―――――――――――――――――――      unicode       ――――――――――――――――――――――――――――
 
+;; Update emacs unicode data database
+;;
+;; download: https://www.unicode.org/Public/UCD/latest/ucd/UnicodeData.txt
+;; Put that file in your emacs init dir. Put this in your emacs init file:
+(when (file-exists-p "~/.emacs.d/UnicodeData.txt")
+  (setq describe-char-unicodedata-file "~/.emacs.d/UnicodeData.txt"))
 
 ;; ―――――――――――――――――――      package       ――――――――――――――――――――――――――――
 
