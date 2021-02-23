@@ -24,15 +24,26 @@
 
 (add-hook 'before-save-hook 'delete-trailing-whitespace) ;; ...before saving
 
+
 (setq frame-title-format '(
       "  ――――――  | EscMetaAltControlShift - 42   |  ――――――――――――――――― "
 			   )) ;; (64 char)
+
+;; mnemonic for utf-8 is "U", which is defined in the mule.el
+(setq eol-mnemonic-unix ":[LF] ")
+(setq eol-mnemonic-dos  ":[CRLF] ")
+(setq eol-mnemonic-mac  ":[CR] ")
+(setq eol-mnemonic-undecided ": [??] ")
+
+
+
 
 ;; ―――――――――――――――――――  directory e file  ――――――――――――――――――――――――――――
 
 ;; EMACS write config here...
 (setq custom-file "~/.emacs.d/custom-file.el")
-(load-file custom-file)             ;; sic
+;; (load-file custom-file)             ;; sic
+(ignore-errors (load custom-file)) ;; it may not yet exist...
 
 ;; ...and put backup files here...
 (setq backup-directory-alist '(("" . "~/.backup/emacs")))
@@ -48,6 +59,14 @@
 
 ;; LISP code test here
 (load "~/.emacs.d/sandbox.el")
+
+;; LM private or personal configuration and data
+;; (load "~/.emacs.d/lm-config")
+
+;; aggiungo la directory dei temi alla variabile specifica
+(add-to-list 'custom-theme-load-path "~/.emacs.d/themes/")
+;; NB: per aggiungere le subdir guarda qui, in basso:
+;; https://www.emacswiki.org/emacs/CustomThemes
 
 ;; ―――――――――――――――――――      unicode       ――――――――――――――――――――――――――――
 
@@ -75,6 +94,13 @@
 ;; cfr. https://github.com/tomaszskutnik/word-count-mode
 (autoload 'word-count-mode "word-count"
           "Minor mode to count words." t nil)
+
+;; beacon
+(require 'beacon)
+(beacon-mode 1)                      ;; beacon on
+;(setq beacon-push-mark 35)          ;;
+;(setq beacon-color "#00008B")       ;;
+
 
 ;;  ___________________ cygwin shell _________________________________
 
