@@ -1,22 +1,48 @@
 ;;     keybindings.el
-;; LM:               2021-050 | 1613749530
+;; LM:               2021-057
 ;;     keybindings.el
 
+(global-set-key "\M-Z" 'zap-up-to-char)           ;; M-z resta mappato su zap-to-char originale
+;; questo invece non elimina il carattere marcatore
 
+;;  ____________ LM own keybindings  _________________________________
+;;                        C-c <k>
+
+(global-set-key (kbd "C-c o") 'occur)             ;; M-x occur shortcut
+(global-set-key "\C-c\C-a" 'mark-whole-buffer)    ;; make C-c C-a “select all”
 (global-set-key (kbd "C-c C-k") 'copy-line)       ;; copy line
 (global-set-key (kbd "C-c y") 'duplicate-line)    ;; duplicate line (yyp in VI)
 (global-set-key (kbd "C-c d") 'kill-whole-line)   ;; kill line - Xah usa "M-9" (dd in VI)
 
-(global-set-key (kbd "<C-tab>") 'bury-buffer)     ;; cycle through buffers
+;;(global-set-key (kbd "<C-tab>") 'bury-buffer)     ;; cycle through buffers
+
+(global-set-key (kbd "C-<tab>") 'next-buffer) ;; TAB is for switching
+(global-set-key (kbd "C-S-<tab>") 'previous-buffer) ;; idem
+
+;; [from package columnize.el]
+(global-set-key (kbd "C-c z") 'columnize-text)
+;;(global-set-key (kbd "C-c Z") 'columnize-strings)
+
+(global-set-key (kbd "C-c r") 'query-replace-regexp) ;; default C-M-%
+(global-set-key (kbd "C-c b") 'ding)    ;; keybinding test: bell!
+
+(define-key global-map (kbd "C-c +") 'text-scale-increase) ;; C-c + increse font size
+(define-key global-map (kbd "C-c -") 'text-scale-decrease) ;; C-c - decrese font size
+
+;; ―――――――――――  C-x : remap!  ――――――――――――――――――――――――――――――――――――――――
+
+;; C-x k --  kill current buffer, no question!
+;; cfr: https://stackoverflow.com/questions/6467002/how-to-kill-buffer-in-emacs-without-answering-confirmation
+(global-set-key (kbd "C-x k") 'kill-current-buffer)
+;;                                  ^^^^^^^
+;; LM NB: "current, not this!"
+
 
 ;; ―――――――――――  C-<something> : more remap!!  ――――――――――――――――――――――――
 
-(define-key global-map (kbd "C-+") 'text-scale-increase) ;; C-+ increse font size
-(define-key global-map (kbd "C--") 'text-scale-decrease) ;; C-- decrese font size
-
 
 ;;  _______________  LM own function: insert  ________________________
-;;                        C-c i <K>
+;;                        C-c i <k>
 
 ;;  C-c i d/o/t/u
 
@@ -36,6 +62,7 @@
                    (interactive)
                    (insert (format-time-string "%s"))))
 
+
 ;;  _______________ LM own function: insert random  __________________
 ;;                        C-c i r <K>
 
@@ -51,6 +78,15 @@
 (global-set-key (kbd "C-c i s") 'xah-insert-random-string)
 (global-set-key (kbd "C-c i h") 'xah-insert-random-hex)
 
+
+;;  _______________  LM own function: www  ___________________________
+;;                        C-c C-w <k>
+
+;; C-c C-w y -- www.youtube.com
+;; C-c C-w g -- www.google.com
+
+(global-set-key (kbd "C-c C-w y") #'er-youtube)  ;; Y for YouTube
+(global-set-key (kbd "C-c C-w g") #'er-google)   ;; G for Google
 
 ;; ―――――――――――――――――――  re-enable keys ―――――――――――――――――――――――――――――――
 
@@ -94,14 +130,6 @@
 ;; (global-set-key (kbd "C-x C-b") 'kill-other-buffers)   ; C-x C-b
 (global-set-key (kbd "<f12>") 'kill-other-buffers) ; F12
 
-;; ―――――――――――  C-x : remap!  ――――――――――――――――――――――――――――――――――――――――
-
-;; C-x k --  kill current buffer, no question!
-;; cfr: https://stackoverflow.com/questions/6467002/how-to-kill-buffer-in-emacs-without-answering-confirmation
-(global-set-key (kbd "C-x k") 'kill-current-buffer)
-;;                                  ^^^^^^^
-;; "current, not this!"
-
 ;; ―――――――――――  from package and mode  ――――――――――――――――――――――――――――――――
 
 ;; [lorem-ipsum]
@@ -114,7 +142,57 @@
 (global-set-key "\C-c\C-t" 'mthesaur-search-append)    ;; ??
 
 ;; [word count] minor mode
-
-
-
 (global-set-key "\M-+" 'word-count-mode)
+
+;; [columnize]  ---> C-c XXXX
+
+
+;; [google-this]
+;; google-this is a package that provides a set of functions and
+;; keybindings for launching google searches from within Emacs.
+
+;; cfr. http://pragmaticemacs.com/emacs/google-search-from-inside-emacs/
+;;      https://github.com/Malabarba/emacs-google-this
+
+
+;; The main function is `google-this' (bound to C-c / g). It does a
+;; google search using the currently selected region, or the
+;; expression under point. All functions are bound under "C-c /"
+;; prefix, in order to comply with Emacs' standards. If that's a
+;; problem see `google-this-keybind'. To view all keybindings type "C-c
+;; / C-h".
+;;
+;; If you don't like this keybind, just reassign the
+;; `google-this-mode-submap' variable.
+;; My personal preference is "C-x g":
+;;
+;;        (global-set-key (kbd "C-x g") 'google-this-mode-submap)
+;;
+;; Or, if you don't want google-this to overwrite the default ("C-c /")
+;; key insert the following line BEFORE everything else (even before
+;; the `require' command):
+;;
+;;        (setq google-this-keybind (kbd "C-x g"))
+;;
+
+;; or C-c g ??
+(global-set-key (kbd "C-x g") 'google-this-mode-submap)
+;; LM questo dovrebbe essere il ramo di keybindings
+
+;; The full list of commands is:
+;;
+;; C-c / SPC 	google-this-region
+;; C-c / a 	google-this-ray
+;; C-c / c 	google-this-translate-query-or-region
+;; C-c / e 	google-this-error
+;; C-c / f 	google-this-forecast
+;; C-c / g 	google-this-lucky-search
+;; C-c / i 	google-this-lucky-and-insert-url
+;; C-c / l 	google-this-line
+;; C-c / m 	google-maps
+;; C-c / n 	google-this-noconfirm
+;; C-c / r 	google-this-cpp-reference
+;; C-c / s 	google-this-symbol
+;; C-c / t 	google-this
+;; C-c / w 	google-this-word
+;; C-c / <return> 	google-this-search

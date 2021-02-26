@@ -1,8 +1,46 @@
 ;;     function.el
-;; LM:             2021-050 | 1613749546
+;; LM:             2021-057
 ;;     function.el
 
 ;; "emacs with batteeries included"...
+
+
+;; ------------------------------------------------------------------ ;;
+;;                      B O N U S   T R A C K
+;; ------------------------------------------------------------------ ;;
+
+;; METTO QUI LE FUNZIONI PIU' UTILI E GENERICHE
+;; PER FARNE UNA B.T. PER IL CORSO; PIU' SOTTO LE MIE STRAMBERIE
+
+
+
+;; ------------------------------------------------------------------ ;;
+
+;; SEARCH : Google!
+;; cfr. https://emacsredux.com/blog/2013/03/28/google/
+(defun er-google ()
+  "Google the selected region if any, display a query prompt otherwise."
+  (interactive)
+  (browse-url
+   (concat
+    "http://www.google.com/search?ie=utf-8&oe=utf-8&q="
+    (url-hexify-string (if mark-active
+         (buffer-substring (region-beginning) (region-end))
+         (read-string "Google: "))))))
+
+
+;; SEARCH : YouTube!
+;; cfr. idem
+(defun er-youtube ()
+  "Search YouTube with a query or region if any."
+  (interactive)
+  (browse-url
+   (concat
+    "http://www.youtube.com/results?search_query="
+    (url-hexify-string (if mark-active
+                         (buffer-substring (region-beginning) (region-end))
+                         (read-string "Search YouTube: "))))))
+
 
 ;; copy line           (una delle tante soluzioni)
 (defun copy-line (arg)
@@ -17,11 +55,7 @@
 (defun duplicate-line()
   (interactive)
   (move-beginning-of-line 1)
-  (kill-line)
-  (yank)
-  (open-line 1)
-  (next-line 1)
-  (yank)
+  (kill-line)(yank)(open-line 1)(next-line 1)(yank)
 )
 ;; C-c y
 
